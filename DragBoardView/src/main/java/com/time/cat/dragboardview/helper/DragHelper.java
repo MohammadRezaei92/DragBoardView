@@ -55,15 +55,15 @@ public class DragHelper {
 
     private Timer mHorizontalScrollTimer = new Timer();//横向滑动
     private TimerTask mHorizontalScrollTimerTask;//横向滑动
-    private static final int HORIZONTAL_STEP = 30;// 横向滑动步伐.
-    private static final int HORIZONTAL_SCROLL_PERIOD = 20;// 滑动时间间隔
+    private int horizontalStep = 30;// 横向滑动步伐.
+    private int horizontalScrollPeriod = 20;// 滑动时间间隔
     private int leftScrollBounce;// 拖动的时候，开始向左滚动的边界
     private int rightScrollBounce;// 拖动的时候，开始向右滚动的边界
 
     private Timer mVerticalScrollTimer = new Timer();//纵向滑动
     private TimerTask mVerticalScrollTimerTask;//纵向滑动
-    private static final int VERTICAL_STEP = 10;// 纵向滑动步伐.
-    private static final int VERTICAL_SCROLL_PERIOD = 10;
+    private int verticalStep = 10;// 纵向滑动步伐.
+    private int verticalScrollPeriod = 10;
     private int upScrollBounce;// 拖动的时候，开始向上滚动的边界
     private int downScrollBounce;// 拖动的时候，开始向下滚动的边界
     private int mPosition = -1;// 拖动的 View 在纵向 recyclerView 上的 position
@@ -102,6 +102,25 @@ public class DragHelper {
         });
     }
 
+    public void setmWindowManager(WindowManager mWindowManager) {
+        this.mWindowManager = mWindowManager;
+    }
+
+    public void setHorizontalStep(int horizontalStep) {
+        this.horizontalStep = horizontalStep;
+    }
+
+    public void setHorizontalScrollPeriod(int horizontalScrollPeriod) {
+        this.horizontalScrollPeriod = horizontalScrollPeriod;
+    }
+
+    public void setVerticalStep(int verticalStep) {
+        this.verticalStep = verticalStep;
+    }
+
+    public void setVerticalScrollPeriod(int verticalScrollPeriod) {
+        this.verticalScrollPeriod = verticalScrollPeriod;
+    }
 
     //region drag column
 
@@ -449,13 +468,13 @@ public class DragHelper {
                     mHorizontalRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            mHorizontalRecyclerView.scrollBy(HORIZONTAL_STEP, 0);
+                            mHorizontalRecyclerView.scrollBy(horizontalStep, 0);
                             findViewPositionInCurVerticalRV(x, y);
                         }
                     });
                 }
             };
-            mHorizontalScrollTimer.schedule(mHorizontalScrollTimerTask, 0, HORIZONTAL_SCROLL_PERIOD);
+            mHorizontalScrollTimer.schedule(mHorizontalScrollTimerTask, 0, horizontalScrollPeriod);
         } else if (x < leftScrollBounce) {
             mHorizontalScrollTimerTask = new TimerTask() {
                 @Override
@@ -463,13 +482,13 @@ public class DragHelper {
                     mHorizontalRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
-                            mHorizontalRecyclerView.scrollBy(-HORIZONTAL_STEP, 0);
+                            mHorizontalRecyclerView.scrollBy(-horizontalStep, 0);
                             findViewPositionInCurVerticalRV(x, y);
                         }
                     });
                 }
             };
-            mHorizontalScrollTimer.schedule(mHorizontalScrollTimerTask, 0, HORIZONTAL_SCROLL_PERIOD);
+            mHorizontalScrollTimer.schedule(mHorizontalScrollTimerTask, 0, horizontalScrollPeriod);
         }
     }
 
@@ -488,13 +507,13 @@ public class DragHelper {
                     mCurrentVerticalRecycleView.post(new Runnable() {
                         @Override
                         public void run() {
-                            mCurrentVerticalRecycleView.scrollBy(0, VERTICAL_STEP);
+                            mCurrentVerticalRecycleView.scrollBy(0, verticalStep);
                             findViewPositionInCurVerticalRV(x, y);
                         }
                     });
                 }
             };
-            mVerticalScrollTimer.schedule(mVerticalScrollTimerTask, 0, VERTICAL_SCROLL_PERIOD);
+            mVerticalScrollTimer.schedule(mVerticalScrollTimerTask, 0, verticalScrollPeriod);
         } else if (y < upScrollBounce) {
             mVerticalScrollTimerTask = new TimerTask() {
                 @Override
@@ -502,13 +521,13 @@ public class DragHelper {
                     mCurrentVerticalRecycleView.post(new Runnable() {
                         @Override
                         public void run() {
-                            mCurrentVerticalRecycleView.scrollBy(0, -VERTICAL_STEP);
+                            mCurrentVerticalRecycleView.scrollBy(0, -verticalStep);
                             findViewPositionInCurVerticalRV(x, y);
                         }
                     });
                 }
             };
-            mVerticalScrollTimer.schedule(mVerticalScrollTimerTask, 0, VERTICAL_SCROLL_PERIOD);
+            mVerticalScrollTimer.schedule(mVerticalScrollTimerTask, 0, verticalScrollPeriod);
         }
     }
 
