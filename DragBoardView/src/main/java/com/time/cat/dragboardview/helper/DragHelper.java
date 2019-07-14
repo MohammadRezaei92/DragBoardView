@@ -57,8 +57,8 @@ public class DragHelper {
     private TimerTask mHorizontalScrollTimerTask;//横向滑动
     private int horizontalStep = 30;// 横向滑动步伐.
     private int horizontalScrollPeriod = 20;// 滑动时间间隔
-    private int leftScrollBounce;// 拖动的时候，开始向左滚动的边界
-    private int rightScrollBounce;// 拖动的时候，开始向右滚动的边界
+    private int leftScrollBounce;// When dragging, start to scroll left to the left
+    private int rightScrollBounce;// When dragging, start scrolling to the right
 
     private Timer mVerticalScrollTimer = new Timer();//纵向滑动
     private TimerTask mVerticalScrollTimerTask;//纵向滑动
@@ -66,8 +66,8 @@ public class DragHelper {
     private int verticalScrollPeriod = 10;
     private int upScrollBounce;// 拖动的时候，开始向上滚动的边界
     private int downScrollBounce;// 拖动的时候，开始向下滚动的边界
-    private int mPosition = -1;// 拖动的 View 在纵向 recyclerView 上的 position
-    private int mPagerPosition = -1;// 拖动的 View 在横向 recyclerView 上的 position
+    private int mPosition = -1;// The position of the dragged view on the portrait recyclerView
+    private int mPagerPosition = -1;// The position of the dragged view on the landscape recyclerView
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -80,7 +80,7 @@ public class DragHelper {
         mWindowParams.format = PixelFormat.TRANSLUCENT;
         mWindowParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
         mWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        mWindowParams.gravity = Gravity.TOP | Gravity.LEFT;
+        mWindowParams.gravity = Gravity.TOP | Gravity.START;
         mWindowParams.x = 0;
         mWindowParams.y = 0;
 

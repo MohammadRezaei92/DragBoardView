@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new ColumnAdapter(this);
         mAdapter.setData(mData);
         dragBoardView.setHorizontalAdapter(mAdapter);
+        dragBoardView.getDragHelper().setHorizontalScrollPeriod(150);
+        dragBoardView.getDragHelper().setHorizontalStep(10);
+        dragBoardView.getDragHelper().setVerticalScrollPeriod(150);
+        dragBoardView.getDragHelper().setVerticalStep(10);
 
         getDataAndRefreshView();
     }
